@@ -1,4 +1,4 @@
-# Deny backup plans to keep snapshots forever
+# Deny backup plans configured to keep snapshots forever
 
 If a Backup Vault is locked in "compliance mode" and lifecycle not set to not expire snapshots (setting `delete_after`), the only option to delete it is to close the AWS account.
 

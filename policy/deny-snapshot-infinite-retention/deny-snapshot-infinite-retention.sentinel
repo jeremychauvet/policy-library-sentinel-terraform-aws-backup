@@ -6,6 +6,7 @@ backup_plans = filter tfplan.resource_changes as _, resource {
 		(resource.change.actions contains "create" or resource.change.actions == ["update"])
 }
 
+// Deny backup plans configured to keep snapshots forever.
 main = rule {
 	all backup_plans as _, backup_plan {
 	    all backup_plan.change.after.rule[0].lifecycle as _, lifecycle_settings {
