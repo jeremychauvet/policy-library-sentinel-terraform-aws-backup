@@ -1,0 +1,15 @@
+import "tfplan/v2" as tfplan
+
+backup_plans = filter tfplan.resource_changes as _, resource {
+	resource.mode == "managed" and
+		resource.type == "aws_backup_plan" and
+		(resource.change.actions contains "create" or resource.change.actions == ["update"])
+}
+
+main = rule {
+	all backup_plans as _, backup_plan {
+	    all backup_plan.change.after.rule[0].lifecycle as _, lifecycle_settings {
+	        lifecycle_settings.delete_after != 0
+	    }
+	}
+}

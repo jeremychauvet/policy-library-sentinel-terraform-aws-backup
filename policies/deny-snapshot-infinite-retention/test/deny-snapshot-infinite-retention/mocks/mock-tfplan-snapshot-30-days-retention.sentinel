@@ -1,0 +1,87 @@
+resource_changes = {
+	"aws_backup_plan.example": {
+		"address": "aws_backup_plan.example",
+		"change": {
+			"actions": [
+				"create",
+			],
+			"after": {
+				"advanced_backup_setting": [],
+				"name": "sentinel-terraform-aws-backup",
+				"rule": [
+					{
+						"completion_window":        180,
+						"copy_action":              [],
+						"enable_continuous_backup": false,
+						"lifecycle": [
+							{
+								"cold_storage_after": null,
+								"delete_after":       30,
+							},
+						],
+						"recovery_point_tags": null,
+						"rule_name":           "keep-snapshots-forever",
+						"schedule":            "cron(0 12 * * ? *)",
+						"start_window":        60,
+						"target_vault_name":   "main",
+					},
+				],
+				"tags": null,
+			},
+			"after_unknown": {
+				"advanced_backup_setting": [],
+				"arn": true,
+				"id":  true,
+				"rule": [
+					{
+						"copy_action": [],
+						"lifecycle": [
+							{
+								"opt_in_to_archive_for_supported_resources": true,
+							},
+						],
+					},
+				],
+				"tags_all": true,
+				"version":  true,
+			},
+			"before": null,
+		},
+		"deposed":        "",
+		"index":          null,
+		"mode":           "managed",
+		"module_address": "",
+		"name":           "example",
+		"provider_name":  "registry.terraform.io/hashicorp/aws",
+		"type":           "aws_backup_plan",
+	},
+	"aws_backup_vault.main": {
+		"address": "aws_backup_vault.main",
+		"change": {
+			"actions": [
+				"create",
+			],
+			"after": {
+				"force_destroy": false,
+				"name":          "main",
+				"tags":          null,
+				"timeouts":      null,
+			},
+			"after_unknown": {
+				"arn":             true,
+				"id":              true,
+				"kms_key_arn":     true,
+				"recovery_points": true,
+				"tags_all":        true,
+			},
+			"before": null,
+		},
+		"deposed":        "",
+		"index":          null,
+		"mode":           "managed",
+		"module_address": "",
+		"name":           "main",
+		"provider_name":  "registry.terraform.io/hashicorp/aws",
+		"type":           "aws_backup_vault",
+	},
+}
